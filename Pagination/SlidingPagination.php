@@ -2,13 +2,62 @@
 
 namespace Knp\Bundle\PaginatorBundle\Pagination;
 
+use JMS\Serializer\Annotation as SER;
+
 use Knp\Component\Pager\Pagination\AbstractPagination;
 
+/**
+ * @SER\ExclusionPolicy("all")
+ */
 class SlidingPagination extends AbstractPagination
 {
     private $route;
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
+    protected $currentPageNumber;
+
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
+    protected $numItemsPerPage;
+
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
+    protected $items = array();
+
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
+    protected $totalCount;
+
+    protected $paginatorOptions;
+
+    protected $customParameters;
+
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
     private $params;
+
+    /**
+     * @SER\Expose
+     * @SER\ReadOnly
+     * @SER\Groups({"pagination"})
+     */
     private $pageRange = 5;
+
     private $template;
     private $sortableTemplate;
     private $filtrationTemplate;
